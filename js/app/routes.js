@@ -13,6 +13,14 @@
     // default route
     $urlRouterProvider.otherwise("/");
 
+
+    $stateProvider
+      .state('home', {
+      url: '/',
+      templateUrl: 'partials/home.html',
+      controller: 'rankController'
+    });
+
   });
 
 }());

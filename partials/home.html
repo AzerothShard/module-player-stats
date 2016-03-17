@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="text-center">
+      <table align="center" class="rank">
+        <tr ng-repeat="rank in ranks">
+          <td>{{ rank.name }}</td>
+          <td><img ng-src="{{ 'img/race/' + rank.race + '-' + rank.gender + '.gif' }}"></td>
+          <td><img ng-src="{{ 'img/class/' + rank.class + '.gif' }}"></td>
+          <td>{{ rank.level }}</td>
+          <td>{{ rank.counter }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

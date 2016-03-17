@@ -2,3 +2,11 @@ body {
   background-color: #263238;
   color: white;
 }
+
+.rank {
+  border: 1px solid;
+}
+
+.rank td {
+  padding-left: 80px;
+}
