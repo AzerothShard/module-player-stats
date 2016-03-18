@@ -23,7 +23,8 @@
     $stateProvider
       .state('player', {
       url: '/player/:id',
-      templateUrl: 'partials/player.html'
+      templateUrl: 'partials/player.html',
+      controller: 'playerController'
     });
 
   });

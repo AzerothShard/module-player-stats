@@ -7,21 +7,20 @@
             <th class="text-center">#</th>
             <th class="text-center">Character</th>
             <th class="text-center">●</th>
-            <th class="text-center">Victories</th>
-            <th class="text-center">Victories</th>
+            <th class="text-center">lvl</th>
+            <th class="text-center">points</th>
           </tr>
         </thead>
         <tbody>
-          <a ng-href="#/player/{{ rank.guid }}">asd</a>
           <tr ng-repeat="rank in ranks track by $index" class="{{ rank.faction }}" ng-click="showPlayerStats(rank.guid)">
-              <td>{{  $index + 1 }}</td>
-              <td>{{ rank.name }}</td>
-              <td>
-                <img ng-src="{{ 'img/race/' + rank.race + '-' + rank.gender + '.gif' }}">
-                <img ng-src="{{ 'img/class/' + rank.class + '.gif' }}">
-              </td>
-              <td>{{ rank.level }}</td>
-              <td>{{ rank.counter }}</td>
+            <td>{{  $index + 1 }}</td>
+            <td>{{ rank.name }}</td>
+            <td>
+              <img ng-src="{{ 'img/race/' + rank.race + '-' + rank.gender + '.gif' }}">
+              <img ng-src="{{ 'img/class/' + rank.class + '.gif' }}">
+            </td>
+            <td>{{ rank.level }}</td>
+            <td>{{ rank.counter }}</td>
           </tr>
         </tbody>
       </table>

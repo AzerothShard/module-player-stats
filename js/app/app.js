@@ -22,7 +22,8 @@
       .error(function (data, status, header, config) {
       console.log("[ERROR] $http.get request failed in rankController!");
     });
-    
+
+    // OnClick (tr) go to player details
     $scope.showPlayerStats = function(id) {
       $state.go('player', {id: id});
     };
@@ -30,6 +31,14 @@
   });
 
   app.controller('playerController', function($scope, $http) {
+    /* Retrieve all characters achievement_progress data */
+    $http.get( app.api + "achievement_progress" )
+      .success(function (data, status, header, config) {
+      $scope.details = data;
+    })
+      .error(function (data, status, header, config) {
+      console.log("[ERROR] $http.get request failed in rankController!");
+    });
 
   });
 
