@@ -19,6 +19,11 @@
       url: '/',
       templateUrl: 'partials/home.html',
       controller: 'rankController'
+    })
+    $stateProvider
+      .state('player', {
+      url: '/player/:id',
+      templateUrl: 'partials/player.html'
     });
 
   });

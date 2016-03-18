@@ -3,10 +3,14 @@ body {
   color: white;
 }
 
-.rank {
-  border: 1px solid;
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+  background-color: rgba(38,50,56, 0.9);
 }
 
-.rank td {
-  padding-left: 80px;
+.table-striped tr:hover {
+  color: white;
+  cursor: pointer;
 }
+
+.alliance { color: #3f51b5; }
+.horde { color: #f44336; }
