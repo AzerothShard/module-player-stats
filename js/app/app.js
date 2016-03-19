@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var app = angular.module('pvestats', ['ui.router', 'ui.bootstrap', 'chieffancypants.loadingBar']);
+  var app = angular.module('pvestats', ['ui.router', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngAnimate']);
 
   app.controller('rankController', function($scope, $http, $state) {
 
@@ -30,14 +30,54 @@
 
   });
 
-  app.controller('playerController', function($scope, $http) {
+  app.controller('playerController', function($scope, $http, $stateParams) {
+
     /* Retrieve all characters achievement_progress data */
-    $http.get( app.api + "achievement_progress" )
+    $http.get( app.api + "achievement_category" )
       .success(function (data, status, header, config) {
-      $scope.details = data;
+      $scope.categories = data;
+
+      $scope.parentCategories = [];
+      $scope.collapseCategory = [];
+
+      for (var i = 0; i < $scope.categories.length; i++) {
+        if ($scope.categories[i].ParentID == -1) {
+          $scope.parentCategories.push($scope.categories[i]);
+          $scope.collapseCategory.push(true);
+        }
+      }
+
+      $scope.childCategories = [];
+
+      for (var i = 0; i < $scope.parentCategories.length; i++) {
+        $scope.childCategories[i] = [];
+
+        for (var j = 0; j < $scope.categories.length; j++) {
+          if ($scope.categories[j].ParentID == $scope.parentCategories[i].ID)
+            $scope.childCategories[i].push($scope.categories[j]);
+        }
+
+      }
+
+      $scope.childStatistics = [];
+      $scope.collapseStatistics = [];
+
+      var statsIndex = $scope.childCategories.length-1;
+      for (var i = 0; i < $scope.childCategories[statsIndex].length; i++) {
+        $scope.childStatistics[i] = [];
+        $scope.collapseStatistics[i] = true;
+
+        for (var j = 0; j < $scope.categories.length; j++) {
+          if ($scope.categories[j].ParentID == $scope.childCategories[statsIndex][i].ID)
+            $scope.childStatistics[i].push($scope.categories[j]);
+        }
+      }
+
+      console.log($scope.childStatistics);
+
     })
       .error(function (data, status, header, config) {
-      console.log("[ERROR] $http.get request failed in rankController!");
+      console.log("[ERROR] $http.get request failed in playerController!");
     });
 
   });

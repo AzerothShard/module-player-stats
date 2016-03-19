@@ -12,5 +12,26 @@ body {
   cursor: pointer;
 }
 
-.alliance { color: #3f51b5; }
-.horde { color: #f44336; }
+.alliance { color: #2196f3; }
+.horde { color: #e53935; }
+
+.category, .sub_category, .statistic, .sub_statistic {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.category {
+  color: #ffd100;
+}
+
+.sub_category {
+  color: white;
+}
+
+.statistic {
+  color: #fb8c00;
+}
+
+.sub_statistic {
+  color: white;
+}
