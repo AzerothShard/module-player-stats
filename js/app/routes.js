@@ -25,6 +25,11 @@
       url: '/player/:id',
       templateUrl: 'partials/player.html',
       controller: 'playerController'
+    })
+      .state('player.ach', {
+      url: '/ach/:achId',
+      templateUrl: 'partials/achievements.html',
+      controller: 'achController'
     });
 
   });

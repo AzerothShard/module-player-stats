@@ -32,11 +32,14 @@
 
   app.controller('playerController', function($scope, $http, $stateParams) {
 
-    /* Retrieve all characters achievement_progress data */
+    /* Retrieve all achievement_category data */
     $http.get( app.api + "achievement_category" )
       .success(function (data, status, header, config) {
+
+      /* Initialize all categories */
       $scope.categories = data;
 
+      /* Initialize parentCategories and collapseCategories */
       $scope.parentCategories = [];
       $scope.collapseCategory = [];
 
@@ -47,6 +50,7 @@
         }
       }
 
+      /* Initialize childCategories */
       $scope.childCategories = [];
 
       for (var i = 0; i < $scope.parentCategories.length; i++) {
@@ -59,10 +63,13 @@
 
       }
 
+      /* Manage Statistics (the last category with subcategories of childCategories) */
       $scope.childStatistics = [];
       $scope.collapseStatistics = [];
 
+      // Get last category (Statistics)
       var statsIndex = $scope.childCategories.length-1;
+
       for (var i = 0; i < $scope.childCategories[statsIndex].length; i++) {
         $scope.childStatistics[i] = [];
         $scope.collapseStatistics[i] = true;
@@ -72,13 +79,48 @@
             $scope.childStatistics[i].push($scope.categories[j]);
         }
       }
-
-      console.log($scope.childStatistics);
-
     })
       .error(function (data, status, header, config) {
       console.log("[ERROR] $http.get request failed in playerController!");
     });
+
+    /* Manage categories and view */
+    $scope.currentCategory = 92;
+
+    $scope.showCategory = function(categoryIndex, parentCategoryId) {
+      $scope.collapseCategory[categoryIndex] = !$scope.collapseCategory[categoryIndex];
+
+      if ($scope.collapseCategory[categoryIndex] == false)
+        $scope.currentCategory = parentCategoryId;
+
+      // if category is 'General' or 'Feast of Strength' re-change the collapse status
+      if (parentCategoryId == 92 || parentCategoryId == 81)
+        $scope.collapseCategory[categoryIndex] = !$scope.collapseCategory[categoryIndex];
+    };
+
+    $scope.collapseChildCategories = function(childCategoryId, Class, childCategoriesIndex) {
+      // if the category is a subcategory of 'Statistics'
+      if (Class == 'statistic')
+      {
+        if ($scope.collapseStatistics[childCategoriesIndex] == true)
+          $scope.currentCategory = childCategoryId;
+
+        $scope.collapseStatistics[childCategoriesIndex] = !$scope.collapseStatistics[childCategoriesIndex];
+
+        // if category is 'Combat', 'Quests', 'Travel' or 'Social' re-change the collapse status
+        if (childCategoryId == 141 || childCategoryId == 133 || childCategoryId == 134 || childCategoryId == 131)
+          $scope.collapseStatistics[childCategoriesIndex] = !$scope.collapseStatistics[childCategoriesIndex];
+      }
+      else
+        $scope.currentCategory = childCategoryId;
+
+    };
+
+  });
+
+  app.controller('achController', function($scope, $http, $stateParams) {
+
+    $scope.test = $stateParams.achId;
 
   });
 

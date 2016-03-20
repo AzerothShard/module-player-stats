@@ -13,25 +13,21 @@ body {
 }
 
 .alliance { color: #2196f3; }
-.horde { color: #e53935; }
+.horde { color: #f44336; }
+.alliance, .horde { font-weight: bold; }
 
 .category, .sub_category, .statistic, .sub_statistic {
+  transition: all .5s;
+  font-weight: bold;
   background-color: transparent;
-  border-color: transparent;
+  border: 1px solid transparent;
 }
 
-.category {
-  color: #ffd100;
+.category:hover, .sub_category:hover, .statistic:hover, .sub_statistic:hover {
+  transition: all .5s;
+  border: 1px solid #ffd100;
 }
 
-.sub_category {
-  color: white;
-}
-
-.statistic {
-  color: #fb8c00;
-}
-
-.sub_statistic {
-  color: white;
-}
+.category { color: #ffd100; }
+.sub_category { color: white; }
+.statistic { color: #fb8c00; }

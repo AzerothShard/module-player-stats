@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-xs-4">
+  <div class="col-xs-3">
 
     <a href="#/">← Back</a>
 
@@ -8,7 +8,11 @@
 
     <div ng-repeat="parentCategory in parentCategories track by $index">
 
-      <button type="button" class="category" ng-click="collapseCategory[$index] = !collapseCategory[$index]">{{ parentCategory.Name }}</button>
+      <button type="button" class="category"
+              ng-click="showCategory($index, parentCategory.ID);"
+              ui-sref=".ach({ achId: currentCategory })">
+        {{ parentCategory.Name }}
+      </button>
 
       <div uib-collapse="collapseCategory[$index]"
            ng-init="t = ($index == parentCategories.length-1 ? childStatistics : []);
@@ -16,14 +20,19 @@
            >
 
         <div ng-repeat="childCategory in childCategories[$index]" ng-init="tmp = $index">
+
           <button ng-class="class"
-                  ng-click="class == 'statistic' ? (collapseStatistics[$index] = !collapseStatistics[$index]) : ''"
+                  ng-click="
+                            collapseChildCategories(childCategory.ID, class, $index)"
+                  ui-sref=".ach({ achId: currentCategory })"
                   >
             {{ childCategory.Name }}
           </button>
-          <div ng-repeat="statistic in t[$index]" class="sub_statistic" uib-collapse="collapseStatistics[tmp]">
+
+          <div ng-repeat="statistic in t[$index]" class="sub_category" uib-collapse="collapseStatistics[tmp]">
             {{ statistic.Name }}
           </div>
+
         </div>
 
       </div>
@@ -32,6 +41,8 @@
 
   </div>
   <div class="col-xs-8">
+
+    <div ui-view></div>
 
   </div>
 </div>
