@@ -22,15 +22,19 @@
         <div ng-repeat="childCategory in childCategories[$index]" ng-init="tmp = $index">
 
           <button ng-class="class"
-                  ng-click="
-                            collapseChildCategories(childCategory.ID, class, $index)"
+                  ng-click="collapseChildCategories(childCategory.ID, class, $index)"
                   ui-sref=".ach({ achId: currentCategory })"
                   >
             {{ childCategory.Name }}
           </button>
 
-          <div ng-repeat="statistic in t[$index]" class="sub_category" uib-collapse="collapseStatistics[tmp]">
-            {{ statistic.Name }}
+          <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
+            <button class="sub_category"
+                    ng-click="updateCurrentCategory(statistic.ID)"
+                    ui-sref=".ach({ achId: currentCategory })"
+                    >
+              {{ statistic.Name }}
+            </button>
           </div>
 
         </div>

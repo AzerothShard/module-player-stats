@@ -113,7 +113,11 @@
       }
       else
         $scope.currentCategory = childCategoryId;
+    };
 
+    $scope.updateCurrentCategory = function(categoryId)
+    {
+      $scope.currentCategory = categoryId;
     };
 
   });
