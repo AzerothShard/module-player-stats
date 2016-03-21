@@ -1,3 +1,18 @@
-TO DO
+<div class="row">
+  <div class="col-xs-12">
 
-{{ test }}
+    <div ng-repeat="achievement in achievements">
+      <div class="achievement">
+        <img src="http://wow.zamimg.com/images/wow/icons/large/{{ achievement.icon }}.jpg" class="achievement_icon">
+        <div class="text-center">
+          <p class="achievement_name">{{ achievement.Name }}</p>
+          <span class="achievement_description">{{ achievement.Description }}</span>
+          <span class="achievement_points">{{ achievement.Points }}</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+

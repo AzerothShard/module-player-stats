@@ -124,7 +124,20 @@
 
   app.controller('achController', function($scope, $http, $stateParams) {
 
-    $scope.test = $stateParams.achId;
+    /* Retrieve all achievements data */
+    $http.get( app.api + "achievement?category=" + $stateParams.achId )
+      .success(function (data, status, header, config) {
+
+      $scope.achievements = data;
+      for (var i = 0; i < $scope.achievements.length; i++) {
+        if ($scope.achievements[i].icon == "NULL")
+          $scope.achievements[i].icon = "trade_engineering";
+      }
+
+    })
+      .error(function (data, status, header, config) {
+      console.log("[ERROR] $http.get request failed in achController!");
+    });
 
   });
 
