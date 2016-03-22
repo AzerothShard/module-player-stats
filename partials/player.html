@@ -10,8 +10,8 @@
 
       <button type="button" class="category"
               ng-click="showCategory($index, parentCategory.ID);"
-              ui-sref=".ach({ achId: currentCategory })">
-        {{ parentCategory.Name }}
+              ui-sref=".ach({ catId: currentCategory })">
+        <h4>{{ parentCategory.Name }}</h4>
       </button>
 
       <div uib-collapse="collapseCategory[$index]"
@@ -23,7 +23,7 @@
 
           <button ng-class="class"
                   ng-click="collapseChildCategories(childCategory.ID, class, $index)"
-                  ui-sref=".ach({ achId: currentCategory })"
+                  ui-sref=".ach({ catId: currentCategory })"
                   >
             {{ childCategory.Name }}
           </button>
@@ -31,7 +31,7 @@
           <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
             <button class="sub_category"
                     ng-click="updateCurrentCategory(statistic.ID)"
-                    ui-sref=".ach({ achId: currentCategory })"
+                    ui-sref=".ach({ catId: currentCategory })"
                     >
               {{ statistic.Name }}
             </button>
@@ -45,6 +45,18 @@
 
   </div>
   <div class="col-xs-8">
+
+    <table class="table table-striped player">
+      <tbody>
+        <tr>
+          <td><img ng-src="img/race/64/{{ character.race }}-{{ character.gender }}.png"></td>
+          <td><h2>{{ character.name }}</h2></td>
+          <td><img ng-src="img/class/64/{{ character.class }}.png"></td>
+          <td><h2>{{ character.level }}</h2></td>
+          <td><h2 class="guild">{{ character.guildName != null ? "&lt;"+character.guildName+"&gt;" : "" }}</h2></td>
+        </tr>
+      </tbody>
+    </table>
 
     <div ui-view></div>
 

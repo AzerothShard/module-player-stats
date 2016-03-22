@@ -5,7 +5,7 @@
 
   app.controller('rankController', function($scope, $http, $state) {
 
-    /* Retrieve all characters data */
+    /* Retrieve all achievement_progress data */
     $http.get( app.api + "achievement_progress" )
       .success(function (data, status, header, config) {
       $scope.ranks = data;
@@ -31,6 +31,15 @@
   });
 
   app.controller('playerController', function($scope, $http, $stateParams) {
+
+    /* Retrieve character data */
+    $http.get( app.api + "characters/" + $stateParams.id )
+      .success(function (data, status, header, config) {
+      $scope.character = data[0];
+    })
+      .error(function (data, status, header, config) {
+      console.log("[ERROR] $http.get request failed in achController!");
+    });
 
     /* Retrieve all achievement_category data */
     $http.get( app.api + "achievement_category" )
@@ -124,15 +133,48 @@
 
   app.controller('achController', function($scope, $http, $stateParams) {
 
-    /* Retrieve all achievements data */
-    $http.get( app.api + "achievement?category=" + $stateParams.achId )
+    /* Retrieve category data */
+    $http.get( app.api + "achievement_category?id=" + $stateParams.catId )
+      .success(function (data, status, header, config) {
+      $scope.category = data[0];
+    })
+      .error(function (data, status, header, config) {
+      console.log("[ERROR] $http.get request failed in achController!");
+    });
+
+    /* Retrieve character_achievements data */
+    $http.get( app.api + "character_achievement/" + $stateParams.id + "?category=" + $stateParams.catId )
       .success(function (data, status, header, config) {
 
-      $scope.achievements = data;
-      for (var i = 0; i < $scope.achievements.length; i++) {
-        if ($scope.achievements[i].icon == "NULL")
-          $scope.achievements[i].icon = "trade_engineering";
-      }
+      $scope.character_achievements = data;
+
+
+      /* Retrieve all achievements data */
+      $http.get( app.api + "achievement?category=" + $stateParams.catId )
+        .success(function (data, status, header, config) {
+
+        $scope.achievements = data;
+        for (var i = 0; i < $scope.achievements.length; i++) {
+          if ($scope.achievements[i].icon == "NULL")
+            $scope.achievements[i].icon = "trade_engineering";
+
+          for (var j = 0; j < $scope.character_achievements.length; j++) {
+
+            if ($scope.achievements[i].ID == $scope.character_achievements[j].ID) {
+              $scope.achievements[i].class = "noopacity";
+              console.log("test");
+              break;
+            }
+            else
+              $scope.achievements[i].class = "";
+
+          }
+        }
+
+      })
+        .error(function (data, status, header, config) {
+        console.log("[ERROR] $http.get request failed in achController!");
+      });
 
     })
       .error(function (data, status, header, config) {

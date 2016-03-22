@@ -1,18 +1,22 @@
 <div class="row">
   <div class="col-xs-12">
 
-    <div ng-repeat="achievement in achievements">
-      <div class="achievement">
-        <img src="http://wow.zamimg.com/images/wow/icons/large/{{ achievement.icon }}.jpg" class="achievement_icon">
-        <div class="text-center">
-          <p class="achievement_name">{{ achievement.Name }}</p>
-          <span class="achievement_description">{{ achievement.Description }}</span>
-          <span class="achievement_points">{{ achievement.Points }}</span>
-        </div>
+    <div class="achievement_container">
+      <h2 class="text-center">{{ category.Name }}</h2>
+      
+      <div ng-repeat="achievement in achievements">
+        <div class="achievement {{ achievement.class }}">
+          <img ng-src="http://wow.zamimg.com/images/wow/icons/large/{{ achievement.icon }}.jpg" class="achievement_icon">
+          <div class="text-center">
+            <p class="achievement_name">{{ achievement.Name }}</p>
+            <span class="achievement_description">{{ achievement.Description }}</span>
+            <span class="achievement_points">{{ achievement.Points }}</span>
+          </div>
 
+        </div>
       </div>
+
     </div>
 
   </div>
 </div>
-

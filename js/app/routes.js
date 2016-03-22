@@ -27,7 +27,7 @@
       controller: 'playerController'
     })
       .state('player.ach', {
-      url: '/ach/:achId',
+      url: '/ach/:catId',
       templateUrl: 'partials/achievements.html',
       controller: 'achController'
     });
