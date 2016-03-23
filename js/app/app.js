@@ -30,7 +30,7 @@
 
   });
 
-  app.controller('playerController', function($scope, $http, $stateParams) {
+  app.controller('playerController', function($scope, $http, $stateParams, $state) {
 
     /* Retrieve character data */
     $http.get( app.api + "characters/" + $stateParams.id )
@@ -96,11 +96,15 @@
     /* Manage categories and view */
     $scope.currentCategory = 92;
 
+    $state.go('player.ach', {catId: $scope.currentCategory});
+
     $scope.showCategory = function(categoryIndex, parentCategoryId) {
       $scope.collapseCategory[categoryIndex] = !$scope.collapseCategory[categoryIndex];
 
-      if ($scope.collapseCategory[categoryIndex] == false)
-        $scope.currentCategory = parentCategoryId;
+      if ($scope.collapseCategory[categoryIndex] == false) {
+        if (parentCategoryId != 1)
+          $scope.currentCategory = parentCategoryId;
+      }
 
       // if category is 'General' or 'Feast of Strength' re-change the collapse status
       if (parentCategoryId == 92 || parentCategoryId == 81)
@@ -148,7 +152,6 @@
 
       $scope.character_achievements = data;
 
-
       /* Retrieve all achievements data */
       $http.get( app.api + "achievement?category=" + $stateParams.catId )
         .success(function (data, status, header, config) {
@@ -162,7 +165,6 @@
 
             if ($scope.achievements[i].ID == $scope.character_achievements[j].ID) {
               $scope.achievements[i].class = "noopacity";
-              console.log("test");
               break;
             }
             else
