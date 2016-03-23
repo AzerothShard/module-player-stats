@@ -12,6 +12,7 @@
 
       for (var i = 0; i < $scope.ranks.length; i++)
       {
+        // get faction
         if ($scope.ranks[i].race == 1 || $scope.ranks[i].race == 3 || $scope.ranks[i].race == 4 || $scope.ranks[i].race == 7 || $scope.ranks[i].race == 11)
           $scope.ranks[i].faction = "alliance";
         else
@@ -30,15 +31,23 @@
 
   });
 
-  app.controller('playerController', function($scope, $http, $stateParams, $state) {
+  app.controller('playerController', function($scope, $rootScope, $http, $stateParams, $state) {
 
     /* Retrieve character data */
     $http.get( app.api + "characters/" + $stateParams.id )
       .success(function (data, status, header, config) {
       $scope.character = data[0];
+      
+      // get faction
+      if ($scope.character.race == 1 || $scope.character.race == 3 || $scope.character.race == 4 || $scope.character.race == 7 || $scope.character.race == 11)
+        $scope.character.faction = "alliance";
+      else
+        $scope.character.faction = "horde";
+      
+      $rootScope.faction = $scope.character.faction;
     })
       .error(function (data, status, header, config) {
-      console.log("[ERROR] $http.get request failed in achController!");
+      console.log("[ERROR] $http.get request failed in playerController!");
     });
 
     /* Retrieve all achievement_category data */
@@ -135,7 +144,7 @@
 
   });
 
-  app.controller('achController', function($scope, $http, $stateParams) {
+  app.controller('achController', function($scope, $rootScope, $http, $stateParams) {
 
     /* Retrieve category data */
     $http.get( app.api + "achievement_category?id=" + $stateParams.catId )
@@ -153,11 +162,12 @@
       $scope.character_achievements = data;
 
       /* Retrieve all achievements data */
-      $http.get( app.api + "achievement?category=" + $stateParams.catId )
+      $http.get( app.api + "achievement?category=" + $stateParams.catId + "&faction=" + $rootScope.faction )
         .success(function (data, status, header, config) {
 
         $scope.achievements = data;
         for (var i = 0; i < $scope.achievements.length; i++) {
+
           if ($scope.achievements[i].icon == "NULL")
             $scope.achievements[i].icon = "trade_engineering";
 
@@ -169,8 +179,9 @@
             }
             else
               $scope.achievements[i].class = "";
-
+            
           }
+
         }
 
       })
