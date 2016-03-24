@@ -37,13 +37,13 @@
     $http.get( app.api + "characters/" + $stateParams.id )
       .success(function (data, status, header, config) {
       $scope.character = data[0];
-      
+
       // get faction
       if ($scope.character.race == 1 || $scope.character.race == 3 || $scope.character.race == 4 || $scope.character.race == 7 || $scope.character.race == 11)
         $scope.character.faction = "alliance";
       else
         $scope.character.faction = "horde";
-      
+
       $rootScope.faction = $scope.character.faction;
     })
       .error(function (data, status, header, config) {
@@ -97,6 +97,7 @@
             $scope.childStatistics[i].push($scope.categories[j]);
         }
       }
+
     })
       .error(function (data, status, header, config) {
       console.log("[ERROR] $http.get request failed in playerController!");
@@ -112,7 +113,7 @@
 
       if ($scope.collapseCategory[categoryIndex] == false) {
         if (parentCategoryId != 1)
-          $scope.currentCategory = parentCategoryId;
+          $scope.updateCurrentCategory(parentCategoryId);
       }
 
       // if category is 'General' or 'Feast of Strength' re-change the collapse status
@@ -125,7 +126,7 @@
       if (Class == 'statistic')
       {
         if ($scope.collapseStatistics[childCategoriesIndex] == true)
-          $scope.currentCategory = childCategoryId;
+          $scope.updateCurrentCategory(childCategoryId);
 
         $scope.collapseStatistics[childCategoriesIndex] = !$scope.collapseStatistics[childCategoriesIndex];
 
@@ -134,14 +135,15 @@
           $scope.collapseStatistics[childCategoriesIndex] = !$scope.collapseStatistics[childCategoriesIndex];
       }
       else
-        $scope.currentCategory = childCategoryId;
+        $scope.updateCurrentCategory(childCategoryId);
     };
 
     $scope.updateCurrentCategory = function(categoryId)
     {
+      angular.element(document.getElementById($scope.currentCategory)).removeClass("selected");
       $scope.currentCategory = categoryId;
+      angular.element(document.getElementById($scope.currentCategory)).addClass("selected");
     };
-
   });
 
   app.controller('achController', function($scope, $rootScope, $http, $stateParams) {
@@ -179,7 +181,7 @@
             }
             else
               $scope.achievements[i].class = "";
-            
+
           }
 
         }

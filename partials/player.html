@@ -8,9 +8,12 @@
 
     <div ng-repeat="parentCategory in parentCategories track by $index">
 
-      <button type="button" class="category"
-              ng-click="showCategory($index, parentCategory.ID);"
-              ui-sref=".ach({ catId: currentCategory })">
+      <!-- parentCategory -->
+      <button type="button"
+              class="category"
+              ng-click="showCategory($index, parentCategory.ID)"
+              ui-sref=".ach({ catId: currentCategory })"
+              id="{{ parentCategory.ID }}">
         <h4>{{ parentCategory.Name }}</h4>
       </button>
 
@@ -19,20 +22,21 @@
                     class = ($index == parentCategories.length-1 ? 'statistic' : 'sub_category')"
            >
 
+        <!-- childCategory -->
         <div ng-repeat="childCategory in childCategories[$index]" ng-init="tmp = $index">
-
-          <button ng-class="class"
+          <button class="{{ class }}"
                   ng-click="collapseChildCategories(childCategory.ID, class, $index)"
                   ui-sref=".ach({ catId: currentCategory })"
-                  >
+                  id="{{ childCategory.ID }}">
             {{ childCategory.Name }}
           </button>
 
+            <!-- statistic subcategory-->
           <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
             <button class="sub_category"
                     ng-click="updateCurrentCategory(statistic.ID)"
                     ui-sref=".ach({ catId: currentCategory })"
-                    >
+                    id="{{ statistic.ID }}">
               {{ statistic.Name }}
             </button>
           </div>
