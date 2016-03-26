@@ -8,12 +8,15 @@
         <div class="achievement_stats {{ achievement.class }}">
           <div class="text-center">
             <p class="achievement_name">{{ achievement.Name }}</p>
-            <h2>{{ achievement.counter }}</h2>
-            <!--
-            <uib-progressbar class="active progessbar" max="200" value="166" type="wow">
-              <i>166 / 200</i>
+            <h3 ng-show="achievement.Quantity < 2 || achievement.counter == '-'" ng-bind-html="achievement.counter"></h3>
+
+            <uib-progressbar ng-show="achievement.Quantity > 1 && achievement.counter != '-'"
+                             class="active progessbar"
+                             max="achievement.Quantity"
+                             value="achievement.counter"
+                             type="wow">
+              <i>{{ achievement.counter }} / {{ achievement.Quantity }}</i>
             </uib-progressbar>
-            -->
           </div>
 
         </div>

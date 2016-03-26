@@ -259,10 +259,30 @@
 
           $scope.achievements[i].counter = "-";
           for (var j = 0; j < $scope.character_achievements.length; j++) {
-
+            console.log($scope.achievements[i].Quantity);
             if ($scope.achievements[i].ID == $scope.character_achievements[j].ID && $scope.character_achievements[j].counter > 0) {
               $scope.achievements[i].class = "noopacity";
               $scope.achievements[i].counter = $scope.character_achievements[j].counter;
+              $scope.achievements[i].Quantity = $scope.character_achievements[j].Quantity;
+
+              if ($stateParams.statsId == 140 && $scope.achievements[i].ID != 329 && $scope.achievements[i].ID != 330) {
+
+                // money conversion into gold, silver, copper
+                var money = $scope.achievements[i].counter;
+                var gold = '<img src="img/money/gold.png">';
+                var silver = '<img src="img/money/silver.png">';
+                var copper = '<img src="img/money/copper.png">';
+
+                if (money > 9999)
+                  money = money.substr(0, money.length-4) + ' ' + gold + ' ' + money.substr(-4, 2) + ' ' + silver + ' ' + money.substr(-2) + ' ' + copper;
+                else if (money > 99)
+                  money = '00 ' + gold + ' ' + money.substr(-4, 2) + ' ' + silver + ' ' + money.substr(-2) + ' ' +copper;
+                else
+                  money = '00 ' + gold + ' 00 ' + silver + ' ' + money.substr(-2) + copper;
+
+                $scope.achievements[i].counter = money;
+              }
+
               break;
             }
             else

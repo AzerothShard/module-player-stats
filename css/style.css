@@ -102,6 +102,11 @@ body {
   margin: 0px auto;
 }
 
+.achievement_stats_container img {
+  background-color: rgba(255, 255, 255, 0.1);
+  vertical-align: middle;
+}
+
 .achievement_stats {
   background-image: url('../img/achievement_statistic_structure.png');
   background-repeat: no-repeat;

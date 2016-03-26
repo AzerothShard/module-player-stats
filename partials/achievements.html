@@ -10,7 +10,7 @@
           <div class="text-center">
             <p class="achievement_name">{{ achievement.Name }}</p>
             <span class="achievement_description">{{ achievement.Description }}</span>
-            <span class="achievement_points">{{ achievement.Points }}</span>
+            <span class="achievement_points" ng-show="achievement.Points == 0 ? achievement.Points = '&nbsp;0' : achievement.Points">{{ achievement.Points }}</span>
           </div>
 
         </div>
