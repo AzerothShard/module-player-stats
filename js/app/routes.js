@@ -30,6 +30,11 @@
       url: '/ach/:catId',
       templateUrl: 'partials/achievements.html',
       controller: 'achController'
+    })
+      .state('player.stats', {
+      url: '/stats/:statsId',
+      templateUrl: 'partials/stats.html',
+      controller: 'statsController'
     });
 
   });

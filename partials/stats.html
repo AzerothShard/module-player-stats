@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-xs-12">
+
+    <div class="achievement_stats_container">
+      <h2 class="text-center">{{ category.Name }}</h2>
+      
+      <div ng-repeat="achievement in achievements">
+        <div class="achievement_stats {{ achievement.class }}">
+          <div class="text-center">
+            <p class="achievement_name">{{ achievement.Name }}</p>
+            <h2>{{ achievement.counter }}</h2>
+            <!--
+            <uib-progressbar class="active progessbar" max="200" value="166" type="wow">
+              <i>166 / 200</i>
+            </uib-progressbar>
+            -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

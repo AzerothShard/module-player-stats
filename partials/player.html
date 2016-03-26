@@ -26,16 +26,16 @@
         <div ng-repeat="childCategory in childCategories[$index]" ng-init="tmp = $index">
           <button class="{{ class }}"
                   ng-click="collapseChildCategories(childCategory.ID, class, $index)"
-                  ui-sref=".ach({ catId: currentCategory })"
+                  ui-sref="{{ (parentCategory.ID != 1 ? '.ach({ catId: currentCategory })' : '.stats({ statsId: currentCategory })') }}"
                   id="{{ childCategory.ID }}">
             {{ childCategory.Name }}
           </button>
 
-            <!-- statistic subcategory-->
+            <!-- statistic subcategory -->
           <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
             <button class="sub_category"
                     ng-click="updateCurrentCategory(statistic.ID)"
-                    ui-sref=".ach({ catId: currentCategory })"
+                    ui-sref=".stats({ statsId: currentCategory })"
                     id="{{ statistic.ID }}">
               {{ statistic.Name }}
             </button>
