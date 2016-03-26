@@ -62,6 +62,7 @@ body {
   width: 540px;
   height: 85px;
   opacity: 0.4;
+  transition: all .5s;
 }
 
 .achievement_icon {
@@ -107,9 +108,16 @@ body {
   width: 393px;
   height: 85px;
   opacity: 0.4;
+  transition: all .5s;
+}
+
+.achievement:hover, .achievement_stats:hover {
+  transition: all .5s;
+  opacity: 0.8;
 }
 
 .noopacity { opacity: 1; }
+.noopacity:hover { opacity: 1; }
 
 .progessbar {
   width: 370px;
