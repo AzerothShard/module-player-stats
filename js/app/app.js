@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var app = angular.module('pvestats', ['ui.router', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngAnimate']);
+  var app = angular.module('pvestats', ['ui.router', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngAnimate', 'ngSanitize']);
 
   app.controller('rankController', function($scope, $http, $state) {
 
@@ -259,7 +259,7 @@
 
           $scope.achievements[i].counter = "-";
           for (var j = 0; j < $scope.character_achievements.length; j++) {
-            console.log($scope.achievements[i].Quantity);
+
             if ($scope.achievements[i].ID == $scope.character_achievements[j].ID && $scope.character_achievements[j].counter > 0) {
               $scope.achievements[i].class = "noopacity";
               $scope.achievements[i].counter = $scope.character_achievements[j].counter;
