@@ -98,7 +98,7 @@ body {
 }
 
 .achievement_stats_container {
-  width: 393px;
+  width: 540px;
   margin: 0px auto;
 }
 
@@ -110,7 +110,7 @@ body {
 .achievement_stats {
   background-image: url('../img/achievement_statistic_structure.png');
   background-repeat: no-repeat;
-  width: 393px;
+  width: 540px;
   height: 85px;
   opacity: 0.4;
   transition: all .5s;
