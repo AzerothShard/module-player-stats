@@ -15,7 +15,7 @@
                              max="achievement.Quantity"
                              value="achievement.counter"
                              type="wow">
-              <i>{{ achievement.counter }} / {{ achievement.Quantity }}</i>
+              <i>{{ achievement.counter > achievement.Quantity ? achievement.Quantity : achievement.counter }} / {{ achievement.Quantity }}</i>
             </uib-progressbar>
           </div>
 

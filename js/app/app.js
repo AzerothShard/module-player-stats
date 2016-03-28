@@ -264,6 +264,11 @@
               $scope.achievements[i].class = "noopacity";
               $scope.achievements[i].counter = $scope.character_achievements[j].counter;
               $scope.achievements[i].Quantity = $scope.character_achievements[j].Quantity;
+              
+              if ($scope.achievements[i].Quantity > 1 && $scope.achievements[i].counter != "-") {
+                $scope.achievements[i].counter = parseInt($scope.achievements[i].counter);
+                $scope.achievements[i].Quantity = parseInt($scope.achievements[i].Quantity);
+              }
 
               if ($stateParams.statsId == 140 && $scope.achievements[i].ID != 329 && $scope.achievements[i].ID != 330) {
 
