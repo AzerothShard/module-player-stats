@@ -6,7 +6,7 @@
   app.controller('rankController', function($scope, $http, $state) {
 
     /* Retrieve all achievement_progress data */
-    $http.get( app.api + "achievement_progress" )
+    $http.get( app.api + "character_achievement" )
       .success(function (data, status, header, config) {
       $scope.ranks = data;
 
@@ -306,6 +306,5 @@
     });
 
   });
-
 
 }());

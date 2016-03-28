@@ -12,6 +12,8 @@ body {
   cursor: pointer;
 }
 
+td { font-size: 20px; }
+
 .alliance { color: #2196f3; }
 .horde { color: #f44336; }
 .alliance, .horde { font-weight: bold; }
