@@ -1,7 +1,58 @@
-<div class="row">
-  <div class="col-xs-3">
+<!-- Mobile -->
+<div ng-controller="SidebarController" class="visible-xs">
+  <div class="sidebar" sidebar-directive="state">
+    <button id="navigation-toggle" ng-click="toggleState()" ng-bind-html="arrow"></button>
+    <h4><a href="#/" class="yellowText">← Back</a></h4>
 
-    <a href="#/">← Back</a>
+    <div ng-repeat="parentCategory in parentCategories track by $index">
+
+      <!-- parentCategory -->
+      <button type="button"
+              class="category mobile"
+              ng-click="showCategory($index, parentCategory.ID)"
+              ui-sref=".ach({ catId: currentCategory })"
+              id="{{ parentCategory.ID }}">
+        <h4>{{ parentCategory.Name }}</h4>
+      </button>
+
+      <div uib-collapse="collapseCategory[$index]"
+           ng-init="t = ($index == parentCategories.length-1 ? childStatistics : []);
+                    class = ($index == parentCategories.length-1 ? 'statistic' : 'sub_category')"
+           >
+
+        <!-- childCategory -->
+        <div ng-repeat="childCategory in childCategories[$index]" ng-init="tmp = $index">
+          <button class="{{ class }}"
+                  ng-click="collapseChildCategories(childCategory.ID, class, $index)"
+                  ui-sref="{{ (parentCategory.ID != 1 ? '.ach({ catId: currentCategory })' : '.stats({ statsId: currentCategory })') }}"
+                  id="{{ childCategory.ID }}">
+            <h4>{{ childCategory.Name }}</h4>
+          </button>
+
+          <!-- statistic subcategory -->
+          <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
+            <button class="sub_category"
+                    ng-click="updateCurrentCategory(statistic.ID)"
+                    ui-sref=".stats({ statsId: currentCategory })"
+                    id="{{ statistic.ID }}">
+              <h4>{{ statistic.Name }}</h4>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Desktop & Tablet -->
+<div class="row">
+
+  <div class="col-xs-3 hidden-xs">
+
+    <a href="#/" class="yellowText">← Back</a>
 
     <br>
     <br>
@@ -28,16 +79,16 @@
                   ng-click="collapseChildCategories(childCategory.ID, class, $index)"
                   ui-sref="{{ (parentCategory.ID != 1 ? '.ach({ catId: currentCategory })' : '.stats({ statsId: currentCategory })') }}"
                   id="{{ childCategory.ID }}">
-            {{ childCategory.Name }}
+            <h4>{{ childCategory.Name }}</h4>
           </button>
 
-            <!-- statistic subcategory -->
+          <!-- statistic subcategory -->
           <div ng-repeat="statistic in t[$index]" uib-collapse="collapseStatistics[tmp]">
             <button class="sub_category"
                     ng-click="updateCurrentCategory(statistic.ID)"
                     ui-sref=".stats({ statsId: currentCategory })"
                     id="{{ statistic.ID }}">
-              {{ statistic.Name }}
+              <h4>{{ statistic.Name }}</h4>
             </button>
           </div>
 
@@ -48,7 +99,7 @@
     </div>
 
   </div>
-  <div class="col-xs-8">
+  <div class="col-sm-8 col-xs-12">
 
     <table class="table table-striped player">
       <tbody>
@@ -61,6 +112,8 @@
         </tr>
       </tbody>
     </table>
+
+    <h2 class="text-center yellowText">{{ categoriesArray[currentCategory] }}</h2>
 
     <div ui-view></div>
 

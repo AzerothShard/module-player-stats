@@ -3,6 +3,36 @@
 
   var app = angular.module('pvestats', ['ui.router', 'ui.bootstrap', 'chieffancypants.loadingBar', 'ngAnimate', 'ngSanitize']);
 
+  /* Sidebar*/
+  app.controller('SidebarController', function($scope) {
+
+    $scope.arrow = '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+    $scope.state = false;
+
+    $scope.toggleState = function() {
+      $scope.state = !$scope.state;
+
+      if (!$scope.state)
+        $scope.arrow = '<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+      else
+        $scope.arrow = '<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+    };
+  });
+
+  app.directive('sidebarDirective', function() {
+    return {
+      link : function(scope, element, attr) {
+        scope.$watch(attr.sidebarDirective, function(newVal) {
+          if(newVal) {
+            element.addClass('show');
+            return;
+          }
+          element.removeClass('show');
+        });
+      }
+    };
+  });
+
   app.controller('rankController', function($scope, $http, $state) {
 
     /* Retrieve all achievement_progress data */
@@ -56,6 +86,10 @@
 
       /* Initialize all categories */
       $scope.categories = data;
+      $scope.categoriesArray = [];
+
+      for (var i = 0; i < $scope.categories.length; i++)
+        $scope.categoriesArray[$scope.categories[i].ID] = $scope.categories[i].Name;
 
       /* Initialize parentCategories and collapseCategories */
       $scope.parentCategories = [];
