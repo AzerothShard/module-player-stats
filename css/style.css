@@ -92,7 +92,7 @@ td { font-size: 20px; }
   font-weight: bold;
   font-size: 15px;
   display: block;
-  text-align: center;  
+  text-align: center;
   margin-top: -8px;
   margin-left: 26px;
 }
@@ -163,7 +163,7 @@ td { font-size: 20px; }
   font-size: 15px;
 }
 
-#navigation-toggle {
+.navigation-toggle {
   border: none;
   border-radius: 1em;
   border-top-left-radius: 0em;
@@ -174,14 +174,22 @@ td { font-size: 20px; }
   font-size: 25px;
 
   position: absolute;
-  left: 300px;
+  right: 10px;
   top: 27px;
   padding: 15px;
   margin-left: 35px;
   text-decoration: none;
 }
 
+#inside-menu {
+  top: 8px;
+  padding: 14px;
+}
+
 .show {
+  overflow: auto;
+  height: 100%;
+
   left: 0;
   width: 340px;
   padding: 20px;

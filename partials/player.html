@@ -1,8 +1,14 @@
 <!-- Mobile -->
 <div ng-controller="SidebarController" class="visible-xs">
+
+  <!-- Arrow to open menu -->
+  <button class="navigation-toggle" ng-click="toggleState()" ng-bind-html="arrow"></button>
+
   <div class="sidebar" sidebar-directive="state">
-    <button id="navigation-toggle" ng-click="toggleState()" ng-bind-html="arrow"></button>
     <h4><a href="#/" class="yellowText">← Back</a></h4>
+
+    <!-- Arrow inside menu -->
+    <button class="navigation-toggle" id="inside-menu" ng-click="toggleState()" ng-bind-html="arrow"></button>
 
     <div ng-repeat="parentCategory in parentCategories track by $index">
 
@@ -44,6 +50,10 @@
       </div>
 
     </div>
+
+    <br>
+    <br>
+
   </div>
 </div>
 
