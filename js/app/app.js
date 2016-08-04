@@ -143,6 +143,9 @@
     $state.go('player.ach', {catId: $scope.currentCategory});
 
     $scope.showCategory = function(categoryIndex, parentCategoryId) {
+      for (var i = 0; i < $scope.collapseCategory.length; i++)
+        $scope.collapseCategory[i] = true;
+
       $scope.collapseCategory[categoryIndex] = !$scope.collapseCategory[categoryIndex];
 
       if ($scope.collapseCategory[categoryIndex] == false) {
@@ -159,6 +162,12 @@
       // if the category is a subcategory of 'Statistics'
       if (Class == 'statistic')
       {
+        // Get last category (Statistics)
+        var statsIndex = $scope.childCategories.length-1;
+
+        for (var i = 0; i < $scope.childCategories[statsIndex].length; i++)
+          $scope.collapseStatistics[i] = true;
+
         if ($scope.collapseStatistics[childCategoriesIndex] == true)
           $scope.updateCurrentCategory(childCategoryId);
 
@@ -178,7 +187,7 @@
       $scope.currentCategory = categoryId;
       angular.element(document.getElementById($scope.currentCategory)).addClass("selected");
     };
-    
+
     $scope.collapseAllCategory = function() {
       console.log("collapsed");
     };
@@ -193,9 +202,9 @@
     var enablestats = true;
     for (var i = 0; i < statsCategoryId.length; i++) {
       if (statsCategoryId[i] == $stateParams.catId) {
-          enablestats = false;
-          break;
-        }
+        enablestats = false;
+        break;
+      }
     }
 
     if (!enablestats) {
@@ -259,16 +268,16 @@
     var enablestats = false;
     for (var i = 0; i < statsCategoryId.length; i++) {
       if (statsCategoryId[i] == $stateParams.statsId) {
-          enablestats = true;
-          break;
-        }
+        enablestats = true;
+        break;
+      }
     }
 
     if (!enablestats) {
       $state.go('player.ach', {catId: $stateParams.statsId});
       return;
     }
-    
+
     /* Retrieve category data */
     $http.get( app.api + "achievement_category?id=" + $stateParams.statsId )
       .success(function (data, status, header, config) {
@@ -298,7 +307,7 @@
               $scope.achievements[i].class = "noopacity";
               $scope.achievements[i].counter = $scope.character_achievements[j].counter;
               $scope.achievements[i].Quantity = $scope.character_achievements[j].Quantity;
-              
+
               if ($scope.achievements[i].Quantity > 1 && $scope.achievements[i].counter != "-") {
                 $scope.achievements[i].counter = parseInt($scope.achievements[i].counter);
                 $scope.achievements[i].Quantity = parseInt($scope.achievements[i].Quantity);
