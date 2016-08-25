@@ -42,11 +42,13 @@
 
       for (var i = 0; i < $scope.ranks.length; i++)
       {
-        // get faction
-        if ($scope.ranks[i].race == 1 || $scope.ranks[i].race == 3 || $scope.ranks[i].race == 4 || $scope.ranks[i].race == 7 || $scope.ranks[i].race == 11)
-          $scope.ranks[i].faction = "alliance";
-        else
-          $scope.ranks[i].faction = "horde";
+        if ($scope.ranks[i] != null) {
+          // get faction
+          if ($scope.ranks[i].race == 1 || $scope.ranks[i].race == 3 || $scope.ranks[i].race == 4 || $scope.ranks[i].race == 7 || $scope.ranks[i].race == 11)
+            $scope.ranks[i].faction = "alliance";
+          else
+            $scope.ranks[i].faction = "horde";
+        }
       }
 
     })
