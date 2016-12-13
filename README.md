@@ -1,13 +1,13 @@
-# TC-PvEStats
+# AzerothShard PlayerStats
 
 PvE statistics system for World of Warcraft
 
-## [Live Demo](http://usefulness.altervista.org/PvEstats/)
+## [Live Demo](https://azerothshard.github.io/module-player-stats)
 
-# ![PvEstats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats.png)
+# ![PlayerStats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats.png)
 
-# ![PvEstats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats2.png)
+# ![PlayerStats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats2.png)
 
 ### Mobile version
 
-# ![PvEstats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats_mobile.png)
+# ![PlayerStats](https://raw.githubusercontent.com/Helias/TC-PvEstats/master/screens/PvEstats_mobile.png)
