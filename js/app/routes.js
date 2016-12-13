@@ -13,17 +13,20 @@
     // default route
     $urlRouterProvider.otherwise("/");
 
-
     $stateProvider
       .state('home', {
       url: '/',
       templateUrl: 'partials/home.html',
       controller: 'rankController'
     })
-    $stateProvider
       .state('player', {
       url: '/player/:id',
       templateUrl: 'partials/player.html',
+      controller: 'playerController'
+    })
+      .state('player.info', {
+      url: '/info',
+      templateUrl: 'partials/info.html',
       controller: 'playerController'
     })
       .state('player.ach', {

@@ -10,6 +10,12 @@
     <!-- Arrow inside menu -->
     <button class="navigation-toggle" id="inside-menu" ng-click="toggleState()" ng-bind-html="arrow"></button>
 
+    <button type="button"
+            class="category info_formula"
+            ng-click="getInfos()">
+      <h4>Info Formula</h4>
+    </button>
+
     <div ng-repeat="parentCategory in parentCategories track by $index">
 
       <!-- parentCategory -->
@@ -66,6 +72,12 @@
 
     <br>
     <br>
+
+    <button type="button"
+            class="category info_formula"
+            ng-click="getInfos()">
+      <h4>Info Formula</h4>
+    </button>
 
     <div ng-repeat="parentCategory in parentCategories track by $index">
 

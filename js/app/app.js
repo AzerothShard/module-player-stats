@@ -191,10 +191,11 @@
       console.log("[ERROR] $http.get request failed in playerController!");
     });
 
-    /* Retrieve azth Points */
+    /* Retrieve azth Points and infos */
     $http.get( app.api + "character_achievement?guid=" + $stateParams.id )
       .success(function (data, status, header, config) {
       $rootScope.charPoints = data[0].Points;
+      $rootScope.infos = data[0].infos;
     })
       .error(function (data, status, header, config) {
       console.log("[ERROR] $http.get request failed in playerController!");
@@ -207,6 +208,7 @@
       /* Initialize all categories */
       $scope.categories = data;
       $scope.categoriesArray = [];
+      $scope.categoriesArray[0] = "Info Formula";
 
       for (var i = 0; i < $scope.categories.length; i++)
         $scope.categoriesArray[$scope.categories[i].ID] = $scope.categories[i].Name;
@@ -260,7 +262,15 @@
     /* Manage categories and view */
     $scope.currentCategory = 92;
 
-    $state.go('player.ach', {catId: $scope.currentCategory});
+    if (!$scope.infos_state)
+      $state.go('player.ach', {catId: $scope.currentCategory});
+
+    $scope.infos_state = false;
+    $scope.getInfos = function() {
+      $scope.infos_state = true;
+      $state.go("player.info");
+      $scope.currentCategory = 0;
+    };
 
     $scope.showCategory = function(categoryIndex, parentCategoryId) {
       for (var i = 0; i < $scope.collapseCategory.length; i++)

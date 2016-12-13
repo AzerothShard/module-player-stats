@@ -45,6 +45,18 @@ td { font-size: 20px; }
   margin-top: 8px;
 }
 
+.info_formula, .info_formula:hover {
+  color: #00ff00;;
+  border: 1px solid #00ff00;;
+}
+
+.formula {
+  background-color: transparent;
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .sub_category {
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
