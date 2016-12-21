@@ -1,9 +1,16 @@
 <uib-tabset active="0">
   <uib-tab index="0" heading="Current">
     <br>
+    <div class="btn-group">
+      <label class="tab" ng-model="account" ng-change="load_ranks(account)" uib-btn-radio="'0'">Current</label>
+      <label class="tab" ng-model="account" ng-change="load_ranks(account)" uib-btn-radio="'1'">Current per Account</label>
+    </div>
+    <br>
+    <br>
+
     <div class="row">
       <div class="col-xs-3">
-        <div class="text-left">
+        <div class="btn-group">
           <input type="text" placeholder="Search character..." class="search-input" ng-model="search">
           <a ng-href="#/0/{{ search }}/{{ guild }}">
             <button class="search arrow-right"><span class="glyphicon glyphicon-search"></span></button>
@@ -54,7 +61,7 @@
                 </td>
                 <td>{{ rank.level }}</td>
                 <td class="guild">{{ rank.guildName }}</td>
-                <td>{{ rank.Points }}</td>
+                <td>{{ account == 0 ? rank.Points : rank.total }}</td>
               </tr>
             </tbody>
           </table>
@@ -65,6 +72,11 @@
 
   <uib-tab index="1" heading="Lifetime" ng-click="lifePointsTab()">
     <br>
+    <label class="tab" ng-model="account" ng-change="getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'0'">Current</label>
+    <label class="tab" ng-model="account" ng-change="getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'1'">Current per Account</label>
+    <br>
+    <br>
+
     <div class="row">
       <div class="col-xs-3">
         <input type="text" placeholder="Search player..." class="search-input" ng-model="searchPlayer">
@@ -112,7 +124,7 @@
                     </td>
                     <td>{{ player.level }}</td>
                     <td class="guild">{{ player.guildName }}</td>
-                    <td>{{ player.lifetime_points }}</td>
+                    <td>{{ account == 0 || account == null ? player.lifetime_points : player.total }}</td>
                 </tr>
             </tbody>
           </table>

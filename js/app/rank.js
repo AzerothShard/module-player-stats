@@ -3,11 +3,13 @@
 
   var app = angular.module('playerstats');
 
-  app.controller('rankController', function($scope, $rootScope, $http, $state, $stateParams) {
+  app.controller('rankController', function($scope, $rootScope, $http, $state, $stateParams, $localStorage) {
 
     $scope.from = $stateParams.from == null ? 0 : $stateParams.from;
     $scope.name = $stateParams.name == null ? '' : $stateParams.name;
     $scope.guild = $stateParams.guild == null ? '' : $stateParams.guild;
+
+    $scope.account = $localStorage.account == null ? "0" : $localStorage.account;
 
     $scope.getGuildId = function(val, reload) {
       $scope.guild = val;
@@ -30,25 +32,30 @@
       console.log("[ERROR] $http.get request failed in players rankController!");
     });
 
-    /* Retrieve all achievement_progress data */
-    $http.get( app.api + "character_achievement?from=" + $scope.from + "&name=" + $scope.name + "&guild=" + $scope.guild )
-      .success(function (data, status, header, config) {
-      $scope.ranks = data;
+    $scope.load_ranks = function(account) {
+      $localStorage.account = account;
 
-      for (var i = 0; i < $scope.ranks.length; i++)
-      {
-        if ($scope.ranks[i] != null) {
-          // get faction
-          if ($scope.ranks[i].race == 1 || $scope.ranks[i].race == 3 || $scope.ranks[i].race == 4 || $scope.ranks[i].race == 7 || $scope.ranks[i].race == 11)
-            $scope.ranks[i].faction = "alliance";
-          else
-            $scope.ranks[i].faction = "horde";
+      /* Retrieve all achievement_progress data */
+      $http.get( app.api + "character_achievement?from=" + $scope.from + "&name=" + $scope.name + "&guild=" + $scope.guild + "&per_account=" + account)
+        .success(function (data, status, header, config) {
+        $scope.ranks = data;
+
+        for (var i = 0; i < $scope.ranks.length; i++)
+        {
+          if ($scope.ranks[i] != null) {
+            // get faction
+            if ($scope.ranks[i].race == 1 || $scope.ranks[i].race == 3 || $scope.ranks[i].race == 4 || $scope.ranks[i].race == 7 || $scope.ranks[i].race == 11)
+              $scope.ranks[i].faction = "alliance";
+            else
+              $scope.ranks[i].faction = "horde";
+          }
         }
-      }
-    })
-      .error(function (data, status, header, config) {
-      console.log("[ERROR] $http.get request failed in players rankController!");
-    });
+      })
+        .error(function (data, status, header, config) {
+        console.log("[ERROR] $http.get request failed in players rankController!");
+      });
+    };
+    $scope.load_ranks($scope.account);
 
     // OnClick (tr) go to player details
     $scope.showPlayerStats = function(id) {
@@ -106,7 +113,7 @@
 
     };
 
-    $scope.getLifePointsData = function(start, searchPlayer, guild) {
+    $scope.getLifePointsData = function(start, searchPlayer, guild, account) {
       $scope.fromLifePoints = start;
 
       if (searchPlayer == null)
@@ -115,10 +122,15 @@
       if (guild == null)
         guild = "";
 
+      if (account == null)
+        account = $localStorage.account == null ? "0" : $localStorage.account;
+      else
+        $localStorage.account = account;
+
       $scope.gLifePoints = guild;
 
       /* Retrieve all lifepoints data */
-      $http.get( app.api + "character_achievement?from=" + $scope.fromLifePoints + "&name=" + searchPlayer + "&guild=" + $scope.gLifePoints + "&lifepoints=1")
+      $http.get( app.api + "character_achievement?from=" + $scope.fromLifePoints + "&name=" + searchPlayer + "&guild=" + $scope.gLifePoints + "&lifepoints=1&per_account=" + account)
         .success(function (data, status, header, config) {
         $scope.players = data;
 

@@ -243,6 +243,7 @@ td { font-size: 20px; }
   font-size: 18px;
 
   text-decoration: none;
+  transition: all 1s;
 }
 
 .arrow-left {
@@ -307,7 +308,15 @@ td { font-size: 20px; }
 .nav-tabs > li:hover > a {
   background-color: #361409;
   color: #ffd100;
-  border: none;
+  transition: all 1s;
+}
+
+.nav-tabs > li > a {
+  border: 1px solid transparent;
+}
+.nav-tabs > li:hover > a {
+  border-color: #00ff00;
+  color: #00ff00;
 }
 
 .nav-tabs > li.active > a,
@@ -315,5 +324,25 @@ td { font-size: 20px; }
 .nav-tabs > li.active > a:hover  {
   background-color: #361409;
   color: #00ff00;
-  border: none;
+  border-color: #00ff00;
+}
+
+.tab {
+  background-color: #361409;
+  color: #ffd100;
+  font-size: 15px;
+
+  padding: 10px;
+  border-top-right-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+  border: 1px solid transparent;
+
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.tab:hover, .tab.active, .search:hover, .arrow:hover {
+  transition: all 0.5s;
+  border-color: #00ff00;
+  color: #00ff00;
 }
