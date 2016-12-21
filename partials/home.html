@@ -1,5 +1,5 @@
 <uib-tabset active="0">
-  <uib-tab index="0" heading="Current">
+  <uib-tab index="0" heading="Current" ng-click="load_ranks(account)">
     <br>
     <div class="btn-group">
       <label class="tab" ng-model="account" ng-change="load_ranks(account)" uib-btn-radio="'0'">Current</label>
@@ -48,6 +48,7 @@
                 <th class="text-center">●</th>
                 <th class="text-center">lvl</th>
                 <th class="text-center">Guild</th>
+                <th class="text-center" ng-show="account == 1">characters</th>
                 <th class="text-center">points <img src="img/achievement.gif"></th>
               </tr>
             </thead>
@@ -61,6 +62,7 @@
                 </td>
                 <td>{{ rank.level }}</td>
                 <td class="guild">{{ rank.guildName }}</td>
+                <td ng-show="account == 1">{{ rank.sum_pg }}</td>
                 <td>{{ account == 0 ? rank.Points : rank.total }}</td>
               </tr>
             </tbody>
@@ -70,7 +72,7 @@
     </div>
   </uib-tab>
 
-  <uib-tab index="1" heading="Lifetime" ng-click="lifePointsTab()">
+  <uib-tab index="1" heading="Lifetime" ng-click="getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)">
     <br>
     <label class="tab" ng-model="account" ng-change="getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'0'">Current</label>
     <label class="tab" ng-model="account" ng-change="getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'1'">Current per Account</label>
@@ -111,6 +113,7 @@
                 <th class="text-center">●</th>
                 <th class="text-center">lvl</th>
                 <th class="text-center">Guild</th>
+                <th class="text-center" ng-show="account == 1">characters</th>
                 <th class="text-center">Life Points <img src="img/achievement.gif"></th>
               </tr>
             </thead>
@@ -124,6 +127,7 @@
                     </td>
                     <td>{{ player.level }}</td>
                     <td class="guild">{{ player.guildName }}</td>
+                    <td ng-show="account == 1">{{ player.sum_pg }}</td>
                     <td>{{ account == 0 || account == null ? player.lifetime_points : player.total }}</td>
                 </tr>
             </tbody>
