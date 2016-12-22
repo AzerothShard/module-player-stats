@@ -9,7 +9,7 @@
     $scope.name = $stateParams.name == null ? '' : $stateParams.name;
     $scope.guild = $stateParams.guild == null ? '' : $stateParams.guild;
 
-    $scope.account = $localStorage.account == null ? "0" : $localStorage.account;
+    $scope.account = $localStorage.account == null ? "1" : $localStorage.account;
 
     $scope.getGuildId = function(val, reload) {
       $scope.guild = val;
@@ -123,7 +123,7 @@
         guild = "";
 
       if (account == null)
-        account = $localStorage.account == null ? "0" : $localStorage.account;
+        account = $localStorage.account == null ? "1" : $localStorage.account;
       else
         $localStorage.account = account;
 
