@@ -139,6 +139,10 @@
 
   <uib-tab index="2" heading="Guild" ng-click="guildTab()">
     <br>
+    <label class="tab" ng-model="guild_lifetime" ng-change="getGuildData(fromGuild, searchGuild, guild_lifetime)" uib-btn-radio="'0'">Current</label>
+    <label class="tab" ng-model="guild_lifetime" ng-change="getGuildData(fromGuild, searchGuild, guild_lifetime)" uib-btn-radio="'1'">Lifetime</label>
+    <br>
+    <br>
 
     <div class="row">
       <div class="col-xs-6">
@@ -169,8 +173,11 @@
             <tbody>
                 <tr ng-repeat="guild in guilds track by $index">
                     <td class="guildrank">{{ ($index + 1 - (-fromGuild)) }}</td>
-                    <td><a class="guild_link" ng-href="#/0/{{ search }}/{{ guild.guild }}">{{ guild.guildName }}</a></td>
-                    <td class="guildrank">{{ guild.Points }}</td>
+                    <td>
+                        <a ng-show="guild_lifetime == 0" class="guild_link guild_link_active" ng-href="#/0/{{ search }}/{{ guild.guild }}">{{ guild.guildName }}</a>
+                        <span ng-show="guild_lifetime == 1" class="guild_link">{{ guild.guildName }}</span>
+                    </td>
+                    <td class="guildrank">{{ guild_lifetime == 0 ? guild.Points : guild.lifetime_points }}</td>
                 </tr>
             </tbody>
           </table>

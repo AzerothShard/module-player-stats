@@ -72,8 +72,8 @@ td { font-size: 20px; }
 
 .guild { color: #4caf50; }
 
-.guild_link { color: #76ff03; }
-.guild_link:hover { color: #ffd100; }
+.guild_link { color: #76ff03; cursor: default; }
+.guild_link_active:hover { color: #ffd100; cursor: pointer; }
 
 .guildrank { color: #ffd100; }
 

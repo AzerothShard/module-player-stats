@@ -32,6 +32,9 @@
       console.log("[ERROR] $http.get request failed in players rankController!");
     });
 
+    /*
+     * Manage Current Tab
+     */
     $scope.load_ranks = function(account) {
       $localStorage.account = account;
 
@@ -62,7 +65,9 @@
       $state.go('player', {id: id});
     };
 
-    /* Manage Guild Tab */
+    /*
+     * Manage Guild Tab
+     */
     $scope.loadedGuildTab = false;
 
     $scope.guildTab = function() {
@@ -76,13 +81,21 @@
 
     };
 
-    $scope.getGuildData = function(start, searchGuild) {
+    $scope.guild_lifetime = $localStorage.guild_lifetime == null ? "0" : $localStorage.guild_lifetime;
+
+    $scope.getGuildData = function(start, searchGuild, if_lifetime) {
       $scope.fromGuild = start;
 
       if (searchGuild == null)
         searchGuild = "";
 
-      $http.get( app.api + "guild_points?from=" + start + "&name=" + searchGuild)
+      if (if_lifetime == null)
+        if_lifetime = $localStorage.guild_lifetime == null ? "1" : $localStorage.guild_lifetime;
+      else
+        $localStorage.guild_lifetime = if_lifetime;
+
+
+      $http.get( app.api + "guild_points?from=" + start + "&name=" + searchGuild + "&if_lifetime=" + if_lifetime)
       .success(function (data, status, header, config) {
         $scope.guilds = data;
 
@@ -95,7 +108,9 @@
 
     };
 
-    /* Manage LifePoints Tab */
+    /*
+     * Manage LifePoints Tab
+     */
     $scope.loadedLifePointsTab = false;
 
     $scope.getLifePointsGuild = function(val) {
