@@ -90,7 +90,7 @@
         searchGuild = "";
 
       if (if_lifetime == null)
-        if_lifetime = $localStorage.guild_lifetime == null ? "1" : $localStorage.guild_lifetime;
+        if_lifetime = $localStorage.guild_lifetime == null ? "0" : $localStorage.guild_lifetime;
       else
         $localStorage.guild_lifetime = if_lifetime;
 
