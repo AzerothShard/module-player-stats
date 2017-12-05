@@ -11,6 +11,8 @@
 
     $scope.account = $localStorage.account == null ? "1" : $localStorage.account;
 
+    $scope.g = {};
+
     $scope.getGuildId = function(val, reload) {
       $scope.guild = val;
 
@@ -18,19 +20,19 @@
         $state.go('guild', {from: $scope.from, name: $scope.name, guild: $scope.guild});
     };
 
-    $scope.guildId = $scope.guild;
-
-    $scope.search = $scope.name;
-
     /* Retrieve guild data */
     $http.get( app.api + "guilds")
       .success(function (data, status, header, config) {
       $scope.Guilds = data;
       $scope.Guilds.unshift({guildid:"", name:"Guild..."});
+
+      $scope.g.guildid = $scope.guild;
     })
       .error(function (data, status, header, config) {
       console.log("[ERROR] $http.get request failed in players rankController!");
     });
+
+    $scope.search = $scope.name;
 
     /*
      * Manage Current Tab
@@ -109,24 +111,28 @@
     };
 
     /*
-     * Manage LifePoints Tab
+     * Manage LifePoints and Timewalking Tab
      */
-    $scope.loadedLifePointsTab = false;
+    // $scope.loadedLifePointsTab = false;
+    $scope.fromLifePoints = 0;
+    $scope.tw = false;
 
     $scope.getLifePointsGuild = function(val) {
       $scope.gLifePoints = val;
     };
 
-    $scope.lifePointsTab = function() {
+    $scope.setTw = function() { $scope.tw = true; };
 
-      if (!$scope.loadedLifePointsTab) {
-        $scope.loadedLifePointsTab = true;
-        $scope.fromLifePoints = 0;
-
-        $scope.getLifePointsData(0);
-      }
-
-    };
+    // $scope.lifePointsTab = function() {
+    //
+    //   if (!$scope.loadedLifePointsTab) {
+    //     $scope.loadedLifePointsTab = true;
+    //     $scope.fromLifePoints = 0;
+    //
+    //     $scope.getLifePointsData(0);
+    //   }
+    //
+    // };
 
     $scope.getLifePointsData = function(start, searchPlayer, guild, account) {
       $scope.fromLifePoints = start;
@@ -145,7 +151,7 @@
       $scope.gLifePoints = guild;
 
       /* Retrieve all lifepoints data */
-      $http.get( app.api + "character_achievement?from=" + $scope.fromLifePoints + "&name=" + searchPlayer + "&guild=" + $scope.gLifePoints + "&lifepoints=1&per_account=" + account)
+      $http.get( app.api + "character_achievement?from=" + $scope.fromLifePoints + "&name=" + searchPlayer + "&guild=" + $scope.gLifePoints + "&lifepoints=" + ($scope.tw ? "2" : "1") + "&per_account=" + account)
         .success(function (data, status, header, config) {
         $scope.players = data;
 
@@ -165,6 +171,7 @@
         console.log("[ERROR] $http.get request failed in players rankController!");
       });
 
+      $scope.tw = false;
     };
 
   });

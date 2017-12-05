@@ -186,4 +186,69 @@
     </div>
   </uib-tab>
 
+  <uib-tab index="1" heading="Timewalking" ng-click="setTw(); getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)">
+    <br>
+    <label class="tab" ng-model="account" ng-change="setTw(); getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'1'">Timewalking</label>
+    <label class="tab" ng-model="account" ng-change="setTw(); getLifePointsData(fromLifePoints, searchPlayer, gLifePoints, account)" uib-btn-radio="'0'">Timewalking per Player</label>
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <input type="text" placeholder="Search player..." class="search-input" ng-model="searchPlayer">
+        <button class="search arrow-right" ng-click="getLifePointsData(0, searchPlayer, gLifePoints)"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
+      <div class="col-xs-3">
+        <ui-select ng-model="guildId_lifepoints" class="guildSelect" ng-change="setTw(); getLifePointsGuild(guildId_lifepoints); getLifePointsData(0, searchPlayer, gLifePoints)">
+          <ui-select-match placeholder="Guild...">{{$select.selected.name}}</ui-select-match>
+          <ui-select-choices repeat="item.guildid as item in (Guilds | filter: $select.search) track by item.guildid">
+            {{item.name}}
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="col-xs-6">
+        <div class="pull-right">
+          <button class="arrow arrow-left" ng-click="getLifePointsData((fromLifePoints - 50 > 0 ? fromLifePoints-50 : 0), searchPlayer, gLifePoints)"><span class="glyphicon glyphicon-chevron-left"></span></button>
+            <h3 class="yellowText inline arrow-home">&nbsp; {{ fromLifePoints + " - " + (fromLifePoints-(-50)) }} &nbsp;</h3>
+          <button class="arrow arrow-right" ng-click="getLifePointsData((50-(-fromLifePoints)), searchPlayer, gLifePoints)"><span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <br>
+        <div class="text-center">
+          <table class="table table-striped table-bordered table-condensed">
+            <thead>
+              <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Character</th>
+                <th class="text-center">●</th>
+                <th class="text-center">lvl</th>
+                <th class="text-center">Guild</th>
+                <th class="text-center" ng-show="account == 1">characters</th>
+                <th class="text-center">Leveling Points <img src="img/achievement.gif"></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="player in players track by $index" class="{{ player.faction }}" ng-click="showPlayerStats(player.guid)">
+                    <td>{{ ($index + 1 - (-fromLifePoints)) }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>
+                      <img ng-src="{{ 'img/race/18/' + player.race + '-' + player.gender + '.gif' }}">
+                      <img ng-src="{{ 'img/class/18/' + player.class + '.gif' }}">
+                    </td>
+                    <td>{{ player.level }}</td>
+                    <td class="guild">{{ player.guildName }}</td>
+                    <td ng-show="account == 1">{{ player.sum_pg }}</td>
+                    <td>{{ (account == 0 || account == null) ? player.levelling_points : player.total }}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </uib-tab>
+
 </uib-tabset>
